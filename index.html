@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Example</title>
+</head>
+<body>
+
+<div class="przycisk"></div>
+
+<div class="hero">Hero 1</div>
+<div class="hero">Hero 2</div>
+<div class="hero">Hero 3</div>
+
+<script>
+
+function Hero(name, level) {
+    this.name = name;
+    this.level = level;
+}
+
+Hero.prototype.greet = function() {
+    return `${this.name} says hello`;
+}
+
+Hero.prototype.levelUp = function() {
+    this.level++;
+    return `${this.name} leveled up to ${this.level}`;
+}
+
+const hero1 = new Hero('John', 5);
+console.log(hero1.greet());
+console.log(hero1.levelUp());
+
+// Pobieramy kolekcję elementów z klasą .hero
+const heroElements = document.querySelectorAll('.hero');
+
+// Konwertujemy kolekcję na tablicę za pomocą Array.from()
+const heroArray = Array.from(heroElements);
+
+// Teraz możemy wykonywać operacje na tej tablicy
+heroArray.forEach(hero => {
+    console.log(hero.textContent); // Wypisuje tekst zawarty w każdym elemencie
+});
+
+
+let module = (function(){
+    //private start
+    let przycisk = document.querySelector(".przycisk")
+    
+    async function buttons(){
+
+
+        try{
+            Array.from({length: 3}, (_,index) => {
+                let button = document.createElement("button")
+                button.textContent = "kliknij przycisk: " + index
+                button.setAttribute('id',`${index}`)
+                przycisk.appendChild(button)
+            
+                button.addEventListener('click',()=>{
+                    console.log(button)
+                })
+            })
+            
+        }catch(err){
+            console.log(`blad: ${err}`)
+        }
+        
+
+    }
+    //private end
+
+
+    //public start
+
+    return{
+        publicFunction: function(){
+            buttons()
+        }
+            
+    }
+    
+    //public end
+
+})()
+
+module.publicFunction()
+
+
+
+
+class domek{
+    constructor(name,price){
+        this.name = name
+        this.price = price
+    }
+
+    wyswietl(){
+        return `Nazwa Domu to: ${this.name} i jego cena wynosi: ${this.price}`
+    }
+}
+
+class spear extends domek{
+    constructor(name, price, wlasciciel){
+        super(name,price)
+        this.wlasciciel = wlasciciel
+    }
+
+    speak(){
+        console.log(`${this.name} ${this.price} ${this.wlasciciel}`)
+    }
+    
+    
+}
+
+let dom = new domek("modulowy",500_000)
+console.log(dom.wyswietl())
+
+
+let domZwLascicielem = new spear("dom z wlascicielem", 600_000, "Jan Kowalski")
+domZwLascicielem.speak()
+
+
+
+
+</script>
+
+</body>
+</html>
